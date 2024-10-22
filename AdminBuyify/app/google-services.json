@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "244908187410",
+    "project_id": "buyify-fe90b",
+    "storage_bucket": "buyify-fe90b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244908187410:android:52861b03d5f9f91b981dcb",
+        "android_client_info": {
+          "package_name": "com.example.adminbuyify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtasgBpWWleDLUhQIHgYyI_U1mDbdpbTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
