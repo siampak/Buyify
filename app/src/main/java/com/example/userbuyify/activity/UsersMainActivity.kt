@@ -1,22 +1,20 @@
 package com.example.userbuyify.activity
 
+import android.Manifest
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import com.example.userbuyify.CartListener
-import com.example.userbuyify.R
 import com.example.userbuyify.adapters.AdapterCartProducts
 import com.example.userbuyify.databinding.ActivityUsersMainBinding
 import com.example.userbuyify.databinding.BsCartProductsBinding
-import com.example.userbuyify.databinding.ItemViewProductBinding
 import com.example.userbuyify.roomdb.CartProductTable
 import com.example.userbuyify.viewmodels.UserViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+
 
 class UsersMainActivity : AppCompatActivity(), CartListener{
     private lateinit var  binding: ActivityUsersMainBinding
@@ -28,6 +26,7 @@ class UsersMainActivity : AppCompatActivity(), CartListener{
         super.onCreate(savedInstanceState)
         binding = ActivityUsersMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         getAllCartProducts()
         getTotalItemCountInCart()

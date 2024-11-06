@@ -20,4 +20,4 @@ data class CartProductTable(
     var productType :String ? = null,
 
 
-)
+    )

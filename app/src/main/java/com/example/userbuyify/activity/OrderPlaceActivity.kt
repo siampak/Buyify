@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
@@ -17,29 +18,33 @@ import com.example.userbuyify.adapters.AdapterCartProducts
 import com.example.userbuyify.databinding.ActivityOrderPlaceBinding
 import com.example.userbuyify.databinding.AddressLayoutBinding
 import com.example.userbuyify.models.Orders
-import com.example.userbuyify.models.Users
-import com.example.userbuyify.roomdb.CartProductTable
+
 import com.example.userbuyify.viewmodels.UserViewModel
 import kotlinx.coroutines.launch
 
+
 class OrderPlaceActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityOrderPlaceBinding
-    private val viewModel : UserViewModel by viewModels()
-    private lateinit var adapterCartProducts : AdapterCartProducts
-    private var cartListener : CartListener? = null
-
+    private lateinit var binding: ActivityOrderPlaceBinding
+    private val viewModel: UserViewModel by viewModels()
+    private lateinit var adapterCartProducts: AdapterCartProducts
+    private var cartListener: CartListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderPlaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            val accessToken = com.example.userbuyify.AccessToken
+//            val data = accessToken.getAccessToken()
+//            Log.e(TAG, "AccessToken is: $data")
+//        }
 
         getAllCartProducts()
         backToUserMainActivity()
         onPlaceOrder()
         setStatusBarColor()
     }
-
 
 
 //    private fun onPlaceOrder() {
@@ -72,7 +77,6 @@ class OrderPlaceActivity : AppCompatActivity() {
 //            }
 //        }
 //    }
-
 
 
     //GPT//
@@ -108,10 +112,10 @@ class OrderPlaceActivity : AppCompatActivity() {
     }
 
 
-//    save order to firebase
+    //    save order to firebase
     private fun saveOrder() {
-        viewModel.getAll().observe(this){cartProductsList->
-            if(cartProductsList.isNotEmpty()) {
+        viewModel.getAll().observe(this) { cartProductsList ->
+            if (cartProductsList.isNotEmpty()) {
                 viewModel.getUserAddress { address ->
                     if (address != null) {
                         val order = Orders(
@@ -122,7 +126,18 @@ class OrderPlaceActivity : AppCompatActivity() {
                             orderDate = Utils.getCurrentDate(),
                             orderingUserId = Utils.getCurrentUserId()
                         )
+                        try{
                         viewModel.saveOrderProducts(order)
+                        // Send notification to admin
+                            viewModel.sendNotification(
+                                cartProductsList[0].adminUid!!,
+                                "Ordered",
+                                "Some products has been ordered"
+                            )
+                        }catch (e: Exception) {
+                            Log.e("ButtonClick", "Error notification: ${e.message}")
+                        }
+
 
                         // Update stock and delete cart products in a coroutine
                         lifecycleScope.launch {
@@ -139,6 +154,9 @@ class OrderPlaceActivity : AppCompatActivity() {
                             cartListener?.hideCartLayout()
                         }
 
+//                        // Send notification to admin
+
+
                         Utils.showToast(this, "Order placed successfully.")
                         startActivity(Intent(this, UsersMainActivity::class.java))
                         finish()
@@ -148,7 +166,7 @@ class OrderPlaceActivity : AppCompatActivity() {
                 }
             }
         }
-}
+    }
 
 //                        Utils.showToast(this, "Order placed successfully.")
 //                        startActivity(Intent(this, UsersMainActivity::class.java))
@@ -193,7 +211,7 @@ class OrderPlaceActivity : AppCompatActivity() {
             viewModel.saveAddressStatus()
 
         }
-        Utils.showToast( this, "Address saved.")
+        Utils.showToast(this, "Address saved.")
         alertDialog.dismiss()
         Utils.hideDialog()
         // Now that the address is saved, proceed with saving the order
@@ -210,7 +228,7 @@ class OrderPlaceActivity : AppCompatActivity() {
 
     //data retrieve from the room database
     private fun getAllCartProducts() {
-        viewModel.getAll().observe(this){cartProductList->
+        viewModel.getAll().observe(this) { cartProductList ->
 
             adapterCartProducts = AdapterCartProducts()
             binding.rvProductsItems.adapter = adapterCartProducts
@@ -218,7 +236,7 @@ class OrderPlaceActivity : AppCompatActivity() {
 
             var totalPrice = 0
 
-            for(products in cartProductList){
+            for (products in cartProductList) {
                 val price = products.productPrice?.substring(1)?.toInt() // ৳14 first index minus
                 val itemCount = products.productCount!!
                 totalPrice += (price?.times(itemCount)!!)
@@ -226,7 +244,7 @@ class OrderPlaceActivity : AppCompatActivity() {
 
             binding.tvSubTotal.text = totalPrice.toString()
 
-            if(totalPrice < 200){
+            if (totalPrice < 200) {
                 binding.tvDeliveryCharge.text = "৳30"
                 totalPrice += 30
             }
@@ -235,15 +253,15 @@ class OrderPlaceActivity : AppCompatActivity() {
         }
     }
 
-
-    //StatusBar color change code for this activity(Activity)
-    private fun setStatusBarColor() {
-        window?.apply {
-            val statusBarColors= ContextCompat.getColor(this@OrderPlaceActivity, R.color.yellow)
-            statusBarColor=statusBarColors
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M ){
-                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        //StatusBar color change code for this activity(Activity)
+        private fun setStatusBarColor() {
+            window?.apply {
+                val statusBarColors =
+                    ContextCompat.getColor(this@OrderPlaceActivity, R.color.yellow)
+                statusBarColor = statusBarColors
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                }
             }
         }
     }
-}
