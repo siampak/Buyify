@@ -1,4 +1,4 @@
-package com.example.adminbuyify
+package com.example.adminbuyify.utils
 
 import android.content.Context
 import android.view.LayoutInflater

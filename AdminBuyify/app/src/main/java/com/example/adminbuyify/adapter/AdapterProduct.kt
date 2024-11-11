@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.denzcoskun.imageslider.models.SlideModel
-import com.example.adminbuyify.FilteringProducts
+import com.example.adminbuyify.utils.FilteringProducts
 import com.example.adminbuyify.databinding.ItemViewProductBinding
 import com.example.adminbuyify.model.Product
 

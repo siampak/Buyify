@@ -2,7 +2,13 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/AdminBuyify/app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/AdminBuyify/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/Buyify/app/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/Buyify/app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Buyify/.gradle" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

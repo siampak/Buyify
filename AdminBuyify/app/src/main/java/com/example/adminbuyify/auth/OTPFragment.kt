@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.adminbuyify.AdminMainActivity
+import com.example.adminbuyify.activity.AdminMainActivity
 import com.example.adminbuyify.R
 import com.example.adminbuyify.model.Admins
-import com.example.adminbuyify.Utils
+import com.example.adminbuyify.utils.Utils
 import com.example.adminbuyify.databinding.FragmentOTPBinding
 import com.example.adminbuyify.viewmodels.AuthViewmodel
 import kotlinx.coroutines.launch

@@ -1,6 +1,5 @@
 package com.example.adminbuyify.api
 
-import com.example.adminbuyify.AccessToken
 import com.example.adminbuyify.model.PushNotify
 import retrofit2.Call
 import retrofit2.http.Body

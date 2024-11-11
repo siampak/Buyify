@@ -1,9 +1,7 @@
 package com.example.adminbuyify.fragments
 
-import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,16 +13,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.adminbuyify.R
-import com.example.adminbuyify.Utils
+import com.example.adminbuyify.utils.Utils
 import com.example.adminbuyify.adapter.AdapterCartProducts
 import com.example.adminbuyify.databinding.FragmentOrderDetailBinding
 import com.example.adminbuyify.viewmodels.AdminViewModel
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import kotlinx.coroutines.launch
 
 

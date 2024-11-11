@@ -1,4 +1,6 @@
-package com.example.adminbuyify
+package com.example.adminbuyify.utils
+
+import com.example.adminbuyify.R
 
 object Constants {
 

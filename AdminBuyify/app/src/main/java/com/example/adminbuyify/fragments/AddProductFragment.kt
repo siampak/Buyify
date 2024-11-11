@@ -13,15 +13,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.adminbuyify.AdminMainActivity
-import com.example.adminbuyify.Constants
+import com.example.adminbuyify.activity.AdminMainActivity
+import com.example.adminbuyify.utils.Constants
 import com.example.adminbuyify.R
-import com.example.adminbuyify.Utils
+import com.example.adminbuyify.utils.Utils
 import com.example.adminbuyify.adapter.AdapterSelectedImage
 import com.example.adminbuyify.databinding.FragmentAddProductBinding
 import com.example.adminbuyify.model.Product
 import com.example.adminbuyify.viewmodels.AdminViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 

@@ -6,7 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import com.example.adminbuyify.AdminMainActivity
+import com.example.adminbuyify.activity.AdminMainActivity
 import com.example.adminbuyify.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

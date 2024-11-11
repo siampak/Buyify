@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.adminbuyify.R
-import com.example.adminbuyify.Utils
+import com.example.adminbuyify.utils.Utils
 import com.example.adminbuyify.databinding.FragmentSignInBinding
 
 

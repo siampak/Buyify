@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.adminbuyify.AdminMainActivity
+import com.example.adminbuyify.activity.AdminMainActivity
 import com.example.adminbuyify.R
 import com.example.adminbuyify.databinding.FragmentSplashBinding
 import com.example.adminbuyify.viewmodels.AuthViewmodel
@@ -39,7 +39,7 @@ class SplashFragment : Fragment() {
             lifecycleScope.launch {
                 viewModel.isACurrentUser.collect{
                     if (it){
-                        startActivity(Intent(requireActivity(),AdminMainActivity::class.java))
+                        startActivity(Intent(requireActivity(), AdminMainActivity::class.java))
                         requireActivity().finish()
                     }
                     else{

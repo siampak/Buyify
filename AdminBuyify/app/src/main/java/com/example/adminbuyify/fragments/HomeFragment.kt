@@ -1,6 +1,7 @@
 package com.example.adminbuyify.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -9,15 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Filterable
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.adminbuyify.Constants
+import com.example.adminbuyify.activity.AuthMainActivity
+import com.example.adminbuyify.utils.Constants
 import com.example.adminbuyify.R
-import com.example.adminbuyify.Utils
+import com.example.adminbuyify.utils.Utils
 import com.example.adminbuyify.adapter.AdapterProduct
 import com.example.adminbuyify.adapter.CategoriesAdapter
 import com.example.adminbuyify.databinding.EditProductLayoutBinding
@@ -42,7 +43,40 @@ class HomeFragment : Fragment() {
         setCategories() //for categories add
         setStatusBarColor()
         searchProducts()
+        onLogOut()
         return binding.root
+    }
+
+    private fun onLogOut() {
+        binding.tbHomeFragment.setOnMenuItemClickListener{
+            when(it.itemId){
+                R.id.menuLogout->{
+                    logOutUser()
+                    true
+                }
+
+                else -> {false}
+            }
+        }
+    }
+
+    private fun logOutUser(){
+            val builder = AlertDialog.Builder(requireContext())
+            val alertDialog = builder.create()
+            builder.setTitle("Log out")
+                .setMessage("Do you  want to log out ?")
+                .setPositiveButton("Yes"){_,_->
+                    viewModel.logOutUser()
+                    startActivity(Intent(requireContext(), AuthMainActivity::class.java))
+                    requireActivity().finish()
+                }
+                .setNegativeButton("No"){_,_->
+                    alertDialog.dismiss()
+                }
+                //out of the dialog not clickable( not_working)
+                .show()
+                .setCancelable(false)
+
     }
 
     //for search products
@@ -95,7 +129,8 @@ class HomeFragment : Fragment() {
         val categoryList = ArrayList<Categories>()
         //0-20 product object create/ add korbe 'category list' e
         for (i in 0 until Constants.allProductsCategoryIcon.size) {
-            categoryList.add(Categories(Constants.allProductsCategory[i], Constants.allProductsCategoryIcon[i]
+            categoryList.add(Categories(
+                Constants.allProductsCategory[i], Constants.allProductsCategoryIcon[i]
                 )
             )
         }

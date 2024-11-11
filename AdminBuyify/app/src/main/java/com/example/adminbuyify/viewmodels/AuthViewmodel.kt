@@ -3,7 +3,7 @@ package com.example.adminbuyify.viewmodels
 import android.app.Activity
 import androidx.lifecycle.ViewModel
 import com.example.adminbuyify.model.Admins
-import com.example.adminbuyify.Utils
+import com.example.adminbuyify.utils.Utils
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions

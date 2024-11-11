@@ -4,7 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.adminbuyify.Utils
+import com.example.adminbuyify.utils.Utils
 import com.example.adminbuyify.api.ApiUtilities
 import com.example.adminbuyify.model.CartProductTable
 import com.example.adminbuyify.model.Message
@@ -12,6 +12,7 @@ import com.example.adminbuyify.model.Notification
 import com.example.adminbuyify.model.Orders
 import com.example.adminbuyify.model.Product
 import com.example.adminbuyify.model.PushNotify
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -249,120 +250,9 @@ class AdminViewModel : ViewModel() {
         }
     }
 
-
-
-    /*
-        fun sendNotification(orderId: String, title: String, message: String) {
-            // Retrieve the admin's FCM token from Firebase
-            FirebaseDatabase.getInstance().getReference("Admins")
-                .child("Orders")
-                .child(orderId)
-                .child("orderingUserId")
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val userUId = task.result.getValue(String::class.java)
-                        if (userUId != null) {
-                            FirebaseDatabase.getInstance().getReference("AllUsers")
-                                .child("Users")
-                                .child(userUId)
-                                .child("userToken")
-                                .get()
-                                .addOnCompleteListener { tokenTask ->
-                                    if (tokenTask.isSuccessful) {
-                                        val userToken = tokenTask.result.getValue(String::class.java)
-                                        if (!userToken.isNullOrEmpty()) {
-                                            // Create the notification data
-                                            val notification = PushNotify(
-                                                Message(userToken),
-                                                Notification(title, message)
-                                            )
-
-                                            // Call the API to send notification
-                                            ApiUtilities.getApiInterface().sendNotification(notification)
-                                                .enqueue(object : Callback<PushNotify> {
-                                                    override fun onResponse(
-                                                        call: Call<PushNotify>,
-                                                        response: Response<PushNotify>
-                                                    ) {
-                                                        if (response.isSuccessful) {
-                                                            Log.d("Notification", "Notification sent successfully")
-                                                        } else {
-                                                            Log.e("Notification", "Notification response unsuccessful")
-                                                        }
-                                                    }
-
-                                                    override fun onFailure(call: Call<PushNotify>, t: Throwable) {
-                                                        Log.e("Notification", "Failed to send notification: ${t.message}")
-                                                    }
-                                                })
-                                        } else {
-                                            Log.e("Notification", "User token is null or empty")
-                                        }
-                                    } else {
-                                        Log.e("Notification", "Failed to retrieve user token")
-                                    }
-                                }
-                        } else {
-                            Log.e("Notification", "User ID is null")
-                        }
-                    } else {
-                        Log.e("Notification", "Failed to retrieve orderingUserId")
-                    }
-                }
-        }
-    */
-
-
-    /*
-    fun sendNotification(orderId: String, title: String, message: String) {
-    // Retrieve the admin's FCM token from Firebase
-    val getToken = FirebaseDatabase.getInstance()
-    .getReference("Admins")
-    .child("Orders")
-    .child(orderId)
-    .child("orderingUserId")
-    .get()
-    Log.d("Notification", getToken.result.getValue(String::class.java).toString())
-    getToken.addOnCompleteListener { task ->
-    val userUId = task.result.getValue(String::class.java)
-    Log.d("GGG", userUId.toString())
-    val userToken = FirebaseDatabase.getInstance()
-    .getReference("AllUsers")
-    .child("Users")
-    .child(userUId!!)
-    .child("userToken")
-    .get()
-    userToken.addOnCompleteListener {
-
-    // Create the notification data
-    val notification = PushNotify(Message(userToken.toString()), Notification(title,message))
-
-
-    // Call the API to send notification
-    if (notification != null) {
-    ApiUtilities.getApiInterface().sendNotification(notification)
-    .enqueue(object : Callback<PushNotify> {
-    override fun onResponse(
-    call: Call<PushNotify>,
-    response: Response<PushNotify>
-    ) {
-    if (response.isSuccessful) {
-    Log.d("Notification", "Notification sent successfully")
-    Log.d("Notification", it.result.getValue(String::class.java).toString())
-    }
+    fun logOutUser(){
+        FirebaseAuth.getInstance().signOut()
     }
 
-    override fun onFailure(call: Call<PushNotify>, t: Throwable) {
-    Log.e("Notification", "Failed to send notification: ${t.message}")
-    }
-    })
-    }
-    }
-
-    }
-
-    }
-    */
 
 }
