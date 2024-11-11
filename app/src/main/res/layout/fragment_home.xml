@@ -103,10 +103,32 @@
                     android:text="Bestsellers"/>
             </LinearLayout>
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llBestseller"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <include layout="@layout/item_view_shimmer"/>
+                    <include layout="@layout/item_view_shimmer"/>
+                    <include layout="@layout/item_view_shimmer"/>
+                    <include layout="@layout/item_view_shimmer"/>
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvBestsellers"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_160sdp"
                 android:layout_margin="@dimen/_5sdp"
                 android:layout_marginHorizontal="@dimen/_6sdp"
                 android:orientation="horizontal"
@@ -135,8 +157,8 @@
                     android:textStyle="bold"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvCategories"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_5sdp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

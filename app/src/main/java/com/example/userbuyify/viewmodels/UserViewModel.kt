@@ -8,8 +8,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.userbuyify.Utils
+import com.example.userbuyify.utils.Utils
 import com.example.userbuyify.api.ApiUtilities
+import com.example.userbuyify.models.Bestseller
 import com.example.userbuyify.models.Message
 import com.example.userbuyify.models.Notification
 import com.example.userbuyify.models.Orders
@@ -18,6 +19,7 @@ import com.example.userbuyify.models.PushNotify
 import com.example.userbuyify.roomdb.CartProductDao
 import com.example.userbuyify.roomdb.CartProductTable
 import com.example.userbuyify.roomdb.CartProductsDatabase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -203,9 +205,48 @@ class UserViewModel(application: Application): AndroidViewModel(application){
         })
     }
 
+    fun saveAddress(address: String){
+        FirebaseDatabase.getInstance().getReference("AllUsers").child("Users").child(Utils.getCurrentUserId()).child("userAddress").setValue(address)//save to firebase
+
+    }
+
+    fun logOutUser(){
+        FirebaseAuth.getInstance().signOut()
+    }
+
     //saveOrder to Firebase --> Save in the Firebase
     fun saveOrderProducts(orders: Orders){
         FirebaseDatabase.getInstance().getReference("Admins").child("Orders").child(orders.orderId!!).setValue(orders)
+    }
+
+    fun fetchProductTypes() : Flow<List<Bestseller>> = callbackFlow {
+        val db = FirebaseDatabase.getInstance().getReference("Admins/ProductsType")
+
+        val eventListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val productTypeList = ArrayList<Bestseller>()
+                for (productType in snapshot.children){
+                    val productTypeNane = productType.key
+
+                    val productList = ArrayList<Product>()
+
+                    for (products in productType.children){
+                        val products = products.getValue(Product::class.java)
+                        productList.add(products!!)
+                    }
+                    val bestseller = Bestseller(productType = productTypeNane, products = productList)
+                    productTypeList.add(bestseller)
+                }
+                trySend(productTypeList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        }
+        db.addValueEventListener(eventListener)
+        awaitClose{ db.removeEventListener(eventListener) }
     }
 
     //sharedPreference
@@ -217,8 +258,6 @@ class UserViewModel(application: Application): AndroidViewModel(application){
         totalItemCount.value = sharedPreferences.getInt("itemCount", 0)
         return totalItemCount
     }
-
-
 
     //Now save address in sharedPreference
     fun saveAddressStatus(){

@@ -11,9 +11,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.userbuyify.CartListener
+import com.example.userbuyify.utils.CartListener
 import com.example.userbuyify.R
-import com.example.userbuyify.Utils
+import com.example.userbuyify.utils.Utils
 import com.example.userbuyify.adapters.AdapterCartProducts
 import com.example.userbuyify.databinding.ActivityOrderPlaceBinding
 import com.example.userbuyify.databinding.AddressLayoutBinding
@@ -35,7 +35,7 @@ class OrderPlaceActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        lifecycleScope.launch(Dispatchers.IO) {
-//            val accessToken = com.example.userbuyify.AccessToken
+//            val accessToken = com.example.userbuyify.services.AccessToken
 //            val data = accessToken.getAccessToken()
 //            Log.e(TAG, "AccessToken is: $data")
 //        }
@@ -129,8 +129,7 @@ class OrderPlaceActivity : AppCompatActivity() {
                         try{
                         viewModel.saveOrderProducts(order)
                         // Send notification to admin
-                            viewModel.sendNotification(
-                                cartProductsList[0].adminUid!!,
+                            viewModel.sendNotification(adminUid = "${cartProductsList[0].adminUid}",
                                 "Ordered",
                                 "Some products has been ordered"
                             )

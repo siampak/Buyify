@@ -2,7 +2,7 @@ package com.example.userbuyify.viewmodels
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel
-import com.example.userbuyify.Utils
+import com.example.userbuyify.utils.Utils
 import com.example.userbuyify.models.Users
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential

@@ -1,4 +1,6 @@
-package com.example.userbuyify
+package com.example.userbuyify.utils
+
+import com.example.userbuyify.R
 
 object Constants {
 

@@ -11,9 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.userbuyify.CartListener
+import com.example.userbuyify.utils.CartListener
 import com.example.userbuyify.R
-import com.example.userbuyify.Utils
+import com.example.userbuyify.utils.Utils
 import com.example.userbuyify.adapters.AdapterProduct
 import com.example.userbuyify.databinding.FragmentCategoryBinding
 import com.example.userbuyify.databinding.ItemViewProductBinding
@@ -121,8 +121,6 @@ class CategoryFragment : Fragment() {
             viewModel.updateItemCount(product , itemCount) //save & show item count in add button
         }
     }
-
-
 
     private fun onIncrementButtonClicked(product: Product, productBinding: ItemViewProductBinding){
         var itemCountInc =productBinding.tvProductCount.text.toString().toInt()

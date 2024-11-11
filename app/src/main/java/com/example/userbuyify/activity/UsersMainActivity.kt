@@ -1,13 +1,12 @@
 package com.example.userbuyify.activity
 
-import android.Manifest
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
-import com.example.userbuyify.CartListener
+import com.example.userbuyify.utils.CartListener
 import com.example.userbuyify.adapters.AdapterCartProducts
 import com.example.userbuyify.databinding.ActivityUsersMainBinding
 import com.example.userbuyify.databinding.BsCartProductsBinding
@@ -16,7 +15,7 @@ import com.example.userbuyify.viewmodels.UserViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
-class UsersMainActivity : AppCompatActivity(), CartListener{
+class UsersMainActivity : AppCompatActivity(), CartListener {
     private lateinit var  binding: ActivityUsersMainBinding
     private val viewModel : UserViewModel by viewModels()
     private lateinit var cartProductList : List<CartProductTable>

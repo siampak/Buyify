@@ -1,4 +1,4 @@
-package com.example.userbuyify
+package com.example.userbuyify.utils
 
 interface CartListener {
     fun showCartLayout(itemCount:Int)

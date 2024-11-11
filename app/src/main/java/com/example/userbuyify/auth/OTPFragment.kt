@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 
 import androidx.navigation.fragment.findNavController
 import com.example.userbuyify.R
-import com.example.userbuyify.Utils
+import com.example.userbuyify.utils.Utils
 import com.example.userbuyify.activity.UsersMainActivity
 import com.example.userbuyify.databinding.FragmentOTPBinding
 import com.example.userbuyify.models.Users

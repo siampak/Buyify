@@ -1,4 +1,4 @@
-package com.example.userbuyify
+package com.example.userbuyify.utils
 
 import android.widget.Filter
 import com.example.userbuyify.adapters.AdapterProduct

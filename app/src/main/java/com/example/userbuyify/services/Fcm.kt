@@ -14,6 +14,12 @@ import com.google.firebase.messaging.RemoteMessage
 import kotlin.random.Random
 
 
+// Utility function to sanitize strings for Firebase path
+fun sanitizePath(input: String): String {
+    // Replace invalid characters with an underscore
+    return input.replace(Regex("[.#$\\[\\]]"), "_")
+}
+
 class Fcm : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
@@ -23,12 +29,25 @@ class Fcm : FirebaseMessagingService() {
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelID, "Buyify", NotificationManager.IMPORTANCE_HIGH).apply {
+            val channel = NotificationChannel(
+                channelID,
+                "Buyify",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
                 description = "Buyify messages"
                 enableLights(true)
             }
             manager.createNotificationChannel(channel)
         }
+
+        // Retrieve title and body from the message, sanitize them to avoid invalid characters
+        val rawTitle = message.data["title"] ?: "New Notification"
+        val rawBody = message.data["body"] ?: "You have a new message"
+
+        // Sanitize title and body before using them in the notification
+        val title = sanitizePath(rawTitle)
+        val body = sanitizePath(rawBody)
+
 
         val intent = Intent(this, UsersMainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -38,8 +57,8 @@ class Fcm : FirebaseMessagingService() {
         )
 
         val notification = NotificationCompat.Builder(this, channelID)
-            .setContentTitle(message.data["title"] ?: "New Notification")
-            .setContentText(message.data["body"] ?: "You have a new message")
+            .setContentTitle(title)
+            .setContentText(body)
             .setSmallIcon(R.drawable.icon)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
@@ -53,7 +72,6 @@ class Fcm : FirebaseMessagingService() {
 
 
 /*
-
 class Fcm : FirebaseMessagingService() {
 
 override fun onMessageReceived(message: RemoteMessage) {
@@ -63,7 +81,11 @@ val channelID = "UserBuyify"
 val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-val channel = NotificationChannel(channelID, "Buyify", NotificationManager.IMPORTANCE_HIGH).apply {
+val channel = NotificationChannel(
+channelID,
+"Buyify",
+NotificationManager.IMPORTANCE_HIGH
+).apply {
 description = "Buyify messages"
 enableLights(true)
 }
@@ -97,7 +119,10 @@ val notification = NotificationCompat.Builder(this, channelID)
 
 manager.notify(Random.nextInt(), notification)
 } else {
-Log.e("NotificationError", "Invalid notification data: Title or Body contains invalid characters.")
+Log.e(
+"NotificationError",
+"Invalid notification data: Title or Body contains invalid characters."
+)
 }
 }
 
@@ -111,4 +136,5 @@ private fun isAdminApp(): Boolean {
 return false // Change as needed
 }
 }
- */
+*/
+

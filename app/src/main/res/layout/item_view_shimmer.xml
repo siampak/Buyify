@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="130.00dp"
+    android:layout_height="@dimen/_160sdp"
+    android:layout_margin="@dimen/_6sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginEnd="@dimen/_7sdp">
+
+    <LinearLayout
+        android:id="@+id/llProductImages"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_95sdp"
+        android:background="@drawable/bg_shimmer"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ll">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/llProductImages"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llProductImages"
+        >
+        <TextView
+            android:id="@+id/tvProductType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textStyle="bold"
+            android:background="@drawable/bg_shimmer"
+            android:layout_marginTop="3.90dp"
+            />
+
+        <TextView
+            android:id="@+id/tvTotalProducts"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textStyle="bold"
+            android:layout_marginTop="3.90dp"
+            android:background="@drawable/bg_shimmer"
+            />
+
+        <TextView
+            android:id="@+id/tvSellAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginTop="3.90dp"
+            android:textStyle="bold"
+            android:padding="5.20dp"
+            android:gravity="center"
+            android:textSize="14.30sp"
+            android:background="@drawable/bg_shimmer"
+            />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

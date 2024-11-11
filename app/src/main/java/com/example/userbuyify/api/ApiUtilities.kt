@@ -1,6 +1,6 @@
 package com.example.userbuyify.api
 
-import com.example.userbuyify.AccessToken
+import com.example.userbuyify.services.AccessToken
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
